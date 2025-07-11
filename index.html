@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Employee Directory</title>
   <link rel="stylesheet" href="css/style.css" />
-
 </head>
 <body>
   <h1>Employee Directory</h1>
@@ -13,7 +12,7 @@
   <!-- Top Controls -->
   <div id="controls">
     <input type="text" id="search-input" placeholder="Search by name or email" />
-    
+
     <button id="filter-toggle">Filter</button>
 
     <select id="sort-select">
@@ -25,23 +24,22 @@
     <button onclick="window.location.href='form.html'">+ Add Employee</button>
   </div>
 
-  <!-- Filters -->
-  <div id="filter-panel" class="hidden">
+  <!-- Filter Panel -->
+  <div id="filter-panel" class="filter-panel hidden">
     <input type="text" id="filter-firstname" placeholder="First Name" />
     <input type="text" id="filter-department" placeholder="Department" />
     <input type="text" id="filter-role" placeholder="Role" />
     <button id="apply-filters">Apply Filters</button>
   </div>
 
-  <!-- Cards -->
+  <!-- Employee Cards -->
   <div id="employee-list-container"></div>
 
   <!-- Pagination -->
   <div id="pagination-controls"></div>
 
-  <!-- JS Scripts -->
+  <!-- Scripts -->
   <script src="js/data.js"></script>
-<script src="js/app.js"></script>
-
+  <script src="js/app.js"></script>
 </body>
 </html>

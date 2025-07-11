@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Add/Edit Employee</title>
   <link rel="stylesheet" href="css/style.css" />
-
 </head>
 <body>
   <div id="form-container">
@@ -14,14 +13,9 @@
       <input type="hidden" id="emp-id" />
       <input type="text" id="first-name" placeholder="First Name" required />
       <input type="text" id="last-name" placeholder="Last Name" required />
-
-      <div class="form-row">
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="text" id="department" placeholder="Department" required />
-      </div>
-
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="department" placeholder="Department" required />
       <input type="text" id="role" placeholder="Role" required />
-
       <div class="button-group">
         <button type="submit">Save</button>
         <button type="button" id="cancel-btn">Cancel</button>
@@ -38,10 +32,7 @@
 
     let employees = JSON.parse(localStorage.getItem('employees')) || [];
 
-    function reassignIds() {
-      employees.forEach((emp, index) => emp.id = index + 1);
-    }
-
+    // Pre-fill form in edit mode
     if (editId) {
       const emp = employees.find(e => e.id == editId);
       if (emp) {
@@ -54,6 +45,7 @@
       }
     }
 
+    // Save / Update logic
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -75,22 +67,29 @@
         return;
       }
 
+      const newEmp = {
+        id: id ? parseInt(id) : Date.now(),
+        firstName,
+        lastName,
+        email,
+        department,
+        role
+      };
+
       if (id) {
         const index = employees.findIndex(emp => emp.id == id);
-        if (index !== -1) {
-          employees[index] = { id: parseInt(id), firstName, lastName, email, department, role };
-        }
+        if (index !== -1) employees[index] = newEmp;
       } else {
-        employees.push({ id: employees.length + 1, firstName, lastName, email, department, role });
+        employees.push(newEmp);
       }
 
-      reassignIds();
       localStorage.setItem('employees', JSON.stringify(employees));
-      window.location.href = 'index.html'; 
+      window.location.href = 'index.html'; // ✅ redirect to index
     });
 
+    // Cancel button
     document.getElementById('cancel-btn').addEventListener('click', () => {
-      window.location.href = 'index.html';
+      window.location.href = 'index.html'; // ✅ redirect to index
     });
   </script>
 </body>
