@@ -1,0 +1,238 @@
+/* ========== Global Styles ========== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f7f9fb;
+  margin: 0;
+  padding: 30px 15px;
+  color: #333;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* ========== Controls (Search, Sort, Add) ========== */
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#controls input,
+#controls select,
+#controls button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+#controls button {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#controls button:hover {
+  background: #218838;
+}
+
+/* ========== Filter Panel ========== */
+#filter-panel {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  background: #e3e3e3;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#filter-panel.show {
+  display: flex;
+}
+
+/* ========== Employee Cards Grid Layout ========== */
+#employee-list-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+.employee-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-3px);
+}
+
+.employee-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.employee-card p {
+  margin: 5px 0;
+}
+
+/* Card Buttons */
+.employee-card button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.employee-card button.edit-btn {
+  background-color: #007bff;
+}
+
+.employee-card button.delete-btn {
+  background-color: #dc3545;
+}
+
+.employee-card button:hover {
+  opacity: 0.85;
+}
+
+/* ========== Pagination ========== */
+#pagination-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#pagination-controls button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#pagination-controls button.active {
+  background-color: #0056b3;
+}
+
+/* ========== Form Container ========== */
+#form-container {
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+form input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+/* Form Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ========== Responsive Layouts ========== */
+
+/* Tablets: 2 cards */
+@media (min-width: 601px) and (max-width: 900px) {
+  #employee-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-row {
+    flex-direction: row;
+  }
+}
+
+/* Laptops/Desktops: 3 cards */
+@media (min-width: 901px) {
+  #employee-list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Phones: 1 card and stacked form */
+@media (max-width: 600px) {
+  #controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #filter-panel.show {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  form button {
+    width: 100%;
+  }
+}

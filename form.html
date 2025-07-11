@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add/Edit Employee</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body>
+  <div id="form-container">
+    <h2>Add/Edit Employee</h2>
+    <form id="employee-form">
+      <input type="hidden" id="emp-id" />
+      <input type="text" id="first-name" placeholder="First Name" required />
+      <input type="text" id="last-name" placeholder="Last Name" required />
+
+      <div class="form-row">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="text" id="department" placeholder="Department" required />
+      </div>
+
+      <input type="text" id="role" placeholder="Role" required />
+
+      <div class="button-group">
+        <button type="submit">Save</button>
+        <button type="button" id="cancel-btn">Cancel</button>
+      </div>
+    </form>
+    <p id="error-msg" class="error"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('employee-form');
+    const errorMsg = document.getElementById('error-msg');
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('editId');
+
+    let employees = JSON.parse(localStorage.getItem('employees')) || [];
+
+    function reassignIds() {
+      employees.forEach((emp, index) => emp.id = index + 1);
+    }
+
+    if (editId) {
+      const emp = employees.find(e => e.id == editId);
+      if (emp) {
+        document.getElementById('emp-id').value = emp.id;
+        document.getElementById('first-name').value = emp.firstName;
+        document.getElementById('last-name').value = emp.lastName;
+        document.getElementById('email').value = emp.email;
+        document.getElementById('department').value = emp.department;
+        document.getElementById('role').value = emp.role;
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('emp-id').value;
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const department = document.getElementById('department').value.trim();
+      const role = document.getElementById('role').value.trim();
+
+      if (!firstName || !lastName || !email || !department || !role) {
+        errorMsg.textContent = 'All fields are required.';
+        return;
+      }
+
+      const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+      if (!emailRegex.test(email)) {
+        errorMsg.textContent = 'Invalid email format.';
+        return;
+      }
+
+      if (id) {
+        const index = employees.findIndex(emp => emp.id == id);
+        if (index !== -1) {
+          employees[index] = { id: parseInt(id), firstName, lastName, email, department, role };
+        }
+      } else {
+        employees.push({ id: employees.length + 1, firstName, lastName, email, department, role });
+      }
+
+      reassignIds();
+      localStorage.setItem('employees', JSON.stringify(employees));
+      window.location.href = 'dashboard.html';
+    });
+
+    document.getElementById('cancel-btn').addEventListener('click', () => {
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>
